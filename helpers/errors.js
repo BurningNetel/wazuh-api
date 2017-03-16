@@ -23,6 +23,7 @@ errors['02'] = "Command output not in JSON";
 // 60 - 69 stats.py
 // 70 - 79 manage_agents
 // 80 - 89 check_config.py
+// 90 - 99 helpers/files
 
 
 // 600 - 699 Requests

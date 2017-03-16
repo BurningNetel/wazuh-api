@@ -31,12 +31,12 @@ var validator = require('../helpers/input_validation');
  * GET /manager/stats/hourly - Stats hourly averages.
  * GET /manager/stats/weekly - Stats weekly-hourly averages
  *
-**/
+ **/
 
 
 /********************************************/
 /* GET
-/********************************************/
+ /********************************************/
 
 // GET /manager/status - Get manager status
 router.get('/status', function(req, res) {
@@ -44,7 +44,7 @@ router.get('/status', function(req, res) {
     manager.status(function (data) {
         res_h.cmd(data, res);
     });
-    
+
 })
 
 // GET /manager/configuration - Get manager configuration
@@ -52,7 +52,7 @@ router.get('/configuration', function(req, res) {
     logger.log(req.connection.remoteAddress + " GET /manager/configuration");
 
     filter = req_h.get_filter(req.query, ['section', 'field'], 2);
-    
+
     if (filter == "bad_field")
         res_h.bad_request("604", "Allowed fields: section, field", res);
     else
@@ -61,13 +61,24 @@ router.get('/configuration', function(req, res) {
         });
 })
 
+
+// GET /manager/configuration/asxml - Get manager configuration
+router.get('/configuration/asxml', function(req, res) {
+    logger.log(req.connection.remoteAddress + " GET /manager/configuration/asxml");
+
+    manager.config_xml(function (data) {
+        res_h.cmd(data, res);
+    });
+})
+
+
 // GET /manager/configuration/test - Test configuration
 router.get('/configuration/test', function(req, res) {
     logger.log(req.connection.remoteAddress + " GET /manager/configuration/test");
     manager.testconfig(function (data) {
         res_h.cmd(data, res);
     });
-    
+
 })
 
 // GET /manager/stats - Stats
@@ -75,7 +86,7 @@ router.get('/stats', function(req, res) {
     logger.log(req.connection.remoteAddress + " GET /manager/stats");
 
     filter = req_h.get_filter(req.query, ['date'], 1);
-    
+
     if (filter == "bad_field")
         res_h.bad_request("604", "Allowed fields: date", res);
     else{
@@ -115,7 +126,7 @@ router.get('/stats/weekly', function(req, res) {
 
 /********************************************/
 /* PUT
-/********************************************/
+ /********************************************/
 // PUT /manager/start - Start manager
 router.put('/start', function(req, res) {
     logger.log(req.connection.remoteAddress + " PUT /manager/start");
@@ -142,12 +153,12 @@ router.put('/restart', function(req, res) {
 
 /********************************************/
 /* DELETE
-/********************************************/
+ /********************************************/
 
 
 /********************************************/
 /* PATCH
-/********************************************/
+ /********************************************/
 
 
 

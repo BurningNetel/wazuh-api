@@ -12,8 +12,9 @@ config.cors = "yes"; // Values: yes, no
 
 // Paths
 config.ossec_path = "/var/ossec";
-config.log_path = "/var/ossec/logs/api.log";
+config.log_path = config.ossec_path + "slogs/api.log";
 config.api_path = __dirname;
+config.ossec_conf_path = config.ossec_path + "/etc/ossec.conf";
 
 // Logs
 config.logs = "info";  // Values: disabled, info, warning, error, debug (each level includes the previous level).

@@ -11,6 +11,7 @@
 
 var execute = require('../helpers/execute');
 var errors = require('../helpers/errors');
+var files = require('../helpers/files');
 var config = require('../config.js');
 
 var cmd_ossec_control = config.ossec_path + "/bin/ossec-control";
@@ -40,12 +41,12 @@ exports.config = function(filter, callback){
     execute.exec(cmd, [], function (json_output) {
 
         if (json_output.error == 0 && filter != null){
-            
+
             if(filter.section && filter.field)
                 data_filtered = json_output.data[filter.section][filter.field];
             else
                 data_filtered = json_output.data[filter.section];
-            
+
             r_data_filtered = {'error': 0, 'data': data_filtered, 'message': ""};
 
             callback(r_data_filtered);
@@ -56,6 +57,10 @@ exports.config = function(filter, callback){
     });
 }
 
+exports.config_xml = function (callback) {
+    files.read_ossec_conf(callback);
+}
+
 exports.testconfig = function(callback){
     var cmd = config.api_path + "/scripts/check_config.py";
     execute.exec(cmd, [], callback);
@@ -64,7 +69,7 @@ exports.testconfig = function(callback){
 exports.stats = function(date, callback){
     var cmd = config.api_path + "/scripts/stats.py";
     var args = [];
-    
+
     switch(date) {
         case "today":
             var moment = require('moment');
@@ -78,7 +83,7 @@ exports.stats = function(date, callback){
             args = ['-w'];
             break;
         default:
-           args = ['-t', '-y', date.substring(0, 4), '-m', date.substring(4, 6), '-d', date.substring(6, 8)];
+            args = ['-t', '-y', date.substring(0, 4), '-m', date.substring(4, 6), '-d', date.substring(6, 8)];
     }
 
     execute.exec(cmd, args, callback);
