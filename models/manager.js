@@ -9,6 +9,7 @@
  * Foundation.
  */
 
+var libxmljs = require('libxmljs');
 var execute = require('../helpers/execute');
 var errors = require('../helpers/errors');
 var files = require('../helpers/files');
@@ -59,6 +60,12 @@ exports.config = function(filter, callback){
 
 exports.config_xml = function (callback) {
     files.read_ossec_conf(callback);
+}
+
+exports.update_config_xml = function (xml_string, callback) {
+    if(xml_string != null && files.is_valid_xml(xml_string)) {
+        files.write_ossec_conf(xml_string, callback);
+    }
 }
 
 exports.testconfig = function(callback){
