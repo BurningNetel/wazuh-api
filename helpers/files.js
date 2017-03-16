@@ -8,12 +8,15 @@ var config = require('../config.js');
 var logger = require('../helpers/logger');
 
 exports.read_ossec_conf = function(callback){
+    var r_data = "";
     fs.readFile(config.ossec_conf_path, 'utf8', function read(err, data) {
         if (err) {
-            data = {'error':90, 'data': '', 'message': "Error reading file"};
-            callback(data);
+            r_data = {'error':90, 'data': '', 'message': "Error reading file"};
         }
-        r_data = {'error':0, 'data': data, 'message': ""};
+        else {
+            data = data.replace('\n','');
+            r_data = {'error': 0, 'data': data, 'message': ""};
+        }
         callback(r_data);
     });
 };
