@@ -71,6 +71,14 @@ router.get('/configuration/asxml', function(req, res) {
     });
 })
 
+// GET /manager/configuration/agent/asxml - Get central agent configuration
+router.get('/configuration/agent/asxml', function(req, res) {
+    logger.log(req.connection.remoteAddress + " GET /manager/configuration/agent/asxml");
+    manager.config_xml_agent(function (data) {
+        res_h.cmd(data, res);
+    });
+})
+
 
 // GET /manager/configuration/test - Test configuration
 router.get('/configuration/test', function(req, res) {

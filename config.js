@@ -15,6 +15,7 @@ config.ossec_path = "/var/ossec";
 config.log_path = config.ossec_path + "/logs/api.log";
 config.api_path = __dirname;
 config.ossec_conf_path = config.ossec_path + "/etc/ossec.conf";
+config.ossec_agentconf_path = config.ossec_path + "/etc/shared/agent.conf";
 
 // Logs
 config.logs = "info";  // Values: disabled, info, warning, error, debug (each level includes the previous level).
