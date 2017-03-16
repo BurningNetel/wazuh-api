@@ -22,17 +22,15 @@ exports.read_ossec_conf = function(callback){
 };
 
 exports.write_ossec_conf = function (xml, callback) {
-    logger.debug("trying to write xml to file...");
     var r_data = "";
     fs.writeFile(config.ossec_conf_path + ".new", xml, function write(err){
         if(err) {
             r_data = {'error':91, 'data': "", 'message': "Error writing file"};
         } else {
-            r_data = {'error': 1, 'data':"", 'message':""}
+            r_data = {'error': 0, 'data':"", 'message':""}
         }
-        callback(data);
+        callback(r_data);
     });
-    // TODO: Test config before writing
 };
 
 exports.is_valid_xml = function(xml) {

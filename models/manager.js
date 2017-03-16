@@ -63,7 +63,7 @@ exports.config_xml = function (callback) {
 }
 
 exports.update_config_xml = function (xml_string, callback) {
-    if(xml_string != null && files.is_valid_xml(xml_string)) {
+    if(xml_string != null) {
         files.write_ossec_conf(xml_string, callback);
     }
 }

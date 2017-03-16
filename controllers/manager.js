@@ -151,32 +151,13 @@ router.put('/restart', function(req, res) {
     });
 })
 
-
-/********************************************/
-/* PUT
- /********************************************/
-
-// GET /manager/configuration/asxml - Get manager configuration
 router.put('/configuration/asxml', function(req, res) {
     logger.log(req.connection.remoteAddress + " PUT /manager/configuration/asxml");
-    var config_file = req.body['data'];
-    logger.debug("Config file: " + config_file); // TODO: Remove this
-
-    manager.update_config_xml(config_file, function (data) {
-        res_h.cmd(data, res);
+    var config_file = req.body.data;
+    manager.update_config_xml(config_file, function(data) {
+        res_h.cmd(data,res);
     });
 })
-
-
-/********************************************/
-/* DELETE
- /********************************************/
-
-
-/********************************************/
-/* PATCH
- /********************************************/
-
 
 
 module.exports = router;
