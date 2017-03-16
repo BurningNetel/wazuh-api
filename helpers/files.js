@@ -14,7 +14,7 @@ exports.read_ossec_conf = function(callback){
             r_data = {'error':90, 'data': '', 'message': "Error reading file"};
         }
         else {
-            data = data.replace('\n','');
+            data = data.trim().replace(/(\r\n|\n|\r)/gm,"");
             r_data = {'error': 0, 'data': data, 'message': ""};
         }
         callback(r_data);
