@@ -12,7 +12,7 @@ config.cors = "yes"; // Values: yes, no
 
 // Paths
 config.ossec_path = "/var/ossec";
-config.log_path = config.ossec_path + "slogs/api.log";
+config.log_path = config.ossec_path + "/logs/api.log";
 config.api_path = __dirname;
 config.ossec_conf_path = config.ossec_path + "/etc/ossec.conf";
 
