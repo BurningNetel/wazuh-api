@@ -72,6 +72,12 @@ exports.update_config_xml = function (xml_string, callback) {
     }
 };
 
+exports.update_config_xml_agent = function (xml_string, callback) {
+    if(xml_string != null) {
+        files.write_ossec_agent_conf(xml_string, callback);
+    }
+};
+
 exports.testconfig = function(callback){
     var cmd = config.api_path + "/scripts/check_config.py";
     execute.exec(cmd, [], callback);

@@ -20,9 +20,23 @@ exports.read_ossec_conf = function (callback) {
     });
 };
 
+// @TODO validate config then overwrite old config and restart ossec-master
 exports.write_ossec_conf = function (xml, callback) {
     var r_data = "";
     fs.writeFile(config.ossec_conf_path + ".new", xml, function write(err) {
+        if (err) {
+            r_data = {'error': 91, 'data': "", 'message': "Error writing file"};
+        } else {
+            r_data = {'error': 0, 'data': "", 'message': ""}
+        }
+        callback(r_data);
+    });
+};
+
+// @TODO validate config then overwrite old config and restart ossec-master
+exports.write_ossec_agent_conf = function (xml, callback) {
+    var r_data = "";
+    fs.writeFile(config.ossec_agentconf_path + ".new", xml, function write(err) {
         if (err) {
             r_data = {'error': 91, 'data': "", 'message': "Error writing file"};
         } else {

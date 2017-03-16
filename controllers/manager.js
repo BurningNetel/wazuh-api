@@ -159,10 +159,20 @@ router.put('/restart', function(req, res) {
     });
 })
 
+// PUT /manager/configuration/asxml - Overwrites ossec.conf with request.body.data
 router.put('/configuration/asxml', function(req, res) {
     logger.log(req.connection.remoteAddress + " PUT /manager/configuration/asxml");
     var config_file = req.body.data;
     manager.update_config_xml(config_file, function(data) {
+        res_h.cmd(data,res);
+    });
+})
+
+// PUT /manager/configuration/agent/asxml - Overwrites global agent.conf with request.body.data
+router.put('/configuration/agent/asxml', function(req, res) {
+    logger.log(req.connection.remoteAddress + " PUT /manager/configuration/agent/asxml");
+    var config_file = req.body.data;
+    manager.update_config_xml_agent(config_file, function(data) {
         res_h.cmd(data,res);
     });
 })
