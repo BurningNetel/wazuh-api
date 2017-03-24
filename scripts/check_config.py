@@ -6,6 +6,7 @@
 import subprocess
 import json
 import os
+import sys
 
 if __name__ == "__main__":
     ossec_path = "/var/ossec"
@@ -16,7 +17,10 @@ if __name__ == "__main__":
     output = ""
     err = ""
     try:
-        p = subprocess.Popen(["{0}/bin/ossec-logtest".format(ossec_path), "-t"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if len(sys.argv) > 1 && sys.argv[1] == 'new':
+            p = subprocess.Popen(["{0}/bin/ossec-logtest".format(ossec_path), "-t", "-c", "{0}/etc/ossec.conf.new"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        else:
+            p = subprocess.Popen(["{0}/bin/ossec-logtest".format(ossec_path), "-t"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         (output, err) = p.communicate()
 
         lines = err.split(os.linesep)

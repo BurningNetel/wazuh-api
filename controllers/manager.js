@@ -39,16 +39,16 @@ var validator = require('../helpers/input_validation');
  /********************************************/
 
 // GET /manager/status - Get manager status
-router.get('/status', function(req, res) {
+router.get('/status', function (req, res) {
     logger.log(req.connection.remoteAddress + " GET /manager/status");
     manager.status(function (data) {
         res_h.cmd(data, res);
     });
 
-})
+});
 
 // GET /manager/configuration - Get manager configuration
-router.get('/configuration', function(req, res) {
+router.get('/configuration', function (req, res) {
     logger.log(req.connection.remoteAddress + " GET /manager/configuration");
 
     filter = req_h.get_filter(req.query, ['section', 'field'], 2);
@@ -59,123 +59,123 @@ router.get('/configuration', function(req, res) {
         manager.config(filter, function (data) {
             res_h.cmd(data, res);
         });
-})
+});
 
 
 // GET /manager/configuration/asxml - Get manager configuration
-router.get('/configuration/asxml', function(req, res) {
+router.get('/configuration/asxml', function (req, res) {
     logger.log(req.connection.remoteAddress + " GET /manager/configuration/asxml");
 
     manager.config_xml(function (data) {
         res_h.cmd(data, res);
     });
-})
+});
 
 // GET /manager/configuration/agent/asxml - Get central agent configuration
-router.get('/configuration/agent/asxml', function(req, res) {
+router.get('/configuration/agent/asxml', function (req, res) {
     logger.log(req.connection.remoteAddress + " GET /manager/configuration/agent/asxml");
     manager.config_xml_agent(function (data) {
         res_h.cmd(data, res);
     });
-})
+});
 
 
 // GET /manager/configuration/test - Test configuration
-router.get('/configuration/test', function(req, res) {
+router.get('/configuration/test', function (req, res) {
     logger.log(req.connection.remoteAddress + " GET /manager/configuration/test");
     manager.testconfig(function (data) {
         res_h.cmd(data, res);
     });
 
-})
+});
 
 // GET /manager/stats - Stats
-router.get('/stats', function(req, res) {
+router.get('/stats', function (req, res) {
     logger.log(req.connection.remoteAddress + " GET /manager/stats");
 
     filter = req_h.get_filter(req.query, ['date'], 1);
 
     if (filter == "bad_field")
         res_h.bad_request("604", "Allowed fields: date", res);
-    else{
-        if(filter != null){
-            if (validator.dates(filter.date)){
+    else {
+        if (filter != null) {
+            if (validator.dates(filter.date)) {
                 manager.stats(filter.date, function (data) {
                     res_h.cmd(data, res);
                 });
             }
-            else{
+            else {
                 res_h.bad_request("605", "Field: date", res);
             }
         }
-        else{
+        else {
             manager.stats("today", function (data) {
                 res_h.cmd(data, res);
             });
         }
     }
-})
+});
 
 // GET /manager/stats/hourly - Stats hourly averages.
-router.get('/stats/hourly', function(req, res) {
+router.get('/stats/hourly', function (req, res) {
     logger.log(req.connection.remoteAddress + " GET /manager/stats/hourly");
     manager.stats("hourly", function (data) {
         res_h.cmd(data, res);
     });
-})
+});
 
 // GET /manager/stats/weekly - Stats weekly-hourly averages
-router.get('/stats/weekly', function(req, res) {
+router.get('/stats/weekly', function (req, res) {
     logger.log(req.connection.remoteAddress + " GET /manager/stats/weekly");
     manager.stats("weekly", function (data) {
         res_h.cmd(data, res);
     });
-})
+});
 
 /********************************************/
 /* PUT
  /********************************************/
 // PUT /manager/start - Start manager
-router.put('/start', function(req, res) {
+router.put('/start', function (req, res) {
     logger.log(req.connection.remoteAddress + " PUT /manager/start");
     manager.start(function (data) {
         res_h.cmd(data, res);
     });
-})
+});
 
 // PUT /manager/stop - Stop manager
-router.put('/stop', function(req, res) {
+router.put('/stop', function (req, res) {
     logger.log(req.connection.remoteAddress + " PUT /manager/stop");
     manager.stop(function (data) {
         res_h.cmd(data, res);
     });
-})
+});
 
 // PUT /manager/restart - Restart manager
-router.put('/restart', function(req, res) {
+router.put('/restart', function (req, res) {
     logger.log(req.connection.remoteAddress + " PUT /manager/restart");
     manager.restart(function (data) {
         res_h.cmd(data, res);
     });
-})
+});
 
 // PUT /manager/configuration/asxml - Overwrites ossec.conf with request.body.data
-router.put('/configuration/asxml', function(req, res) {
+router.put('/configuration/asxml', function (req, res) {
     logger.log(req.connection.remoteAddress + " PUT /manager/configuration/asxml");
     var config_file = req.body.data;
-    manager.update_config_xml(config_file, function(data) {
-        res_h.cmd(data,res);
+    manager.update_config_xml(config_file, function (data) {
+        res_h.cmd(data, res);
     });
-})
+});
 
 // PUT /manager/configuration/agent/asxml - Overwrites global agent.conf with request.body.data
-router.put('/configuration/agent/asxml', function(req, res) {
+router.put('/configuration/agent/asxml', function (req, res) {
     logger.log(req.connection.remoteAddress + " PUT /manager/configuration/agent/asxml");
     var config_file = req.body.data;
-    manager.update_config_xml_agent(config_file, function(data) {
-        res_h.cmd(data,res);
+    manager.update_config_xml_agent(config_file, function (data) {
+        res_h.cmd(data, res);
     });
-})
+});
 
 
 module.exports = router;
