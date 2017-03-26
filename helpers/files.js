@@ -28,8 +28,6 @@ exports.write_ossec_conf = function (xml, callback) {
         if (err) {
             r_data = {'error': 91, 'data': "", 'message': "Error writing file"};
             callback(r_data);
-        //} else {
-        //    r_data = {'error': 0, 'data': "", 'message': ""}
         }
     });
 
