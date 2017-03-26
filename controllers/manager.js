@@ -3,6 +3,9 @@
  * Copyright (C) 2015-2016 Wazuh, Inc.All rights reserved.
  * Wazuh.com
  *
+ * Extended by Acknowledge Benelux BV in 2017
+ * acknowledge.nl
+ *
  * This program is a free software; you can redistribute it
  * and/or modify it under the terms of the GNU General Public
  * License (version 2) as published by the FSF - Free Software
@@ -22,12 +25,14 @@ var validator = require('../helpers/input_validation');
  * PUT /manager/start - Start manager
  * PUT /manager/stop - Stop manager
  * PUT /manager/restart - Restart manager
+ * PUT /manager/configuration/asxml - Update, validate and apply ossec.conf
+ * PUT /manager/configuration/agent/asxml - Update, validate and apply global agent.conf
  * GET /manager/status - Get manager status
  * GET /manager/configuration - Get manager configuration
- *   GET /manager/configuration?section=rules - Get rules in ossec.conf
+ * GET /manager/configuration?section=rules - Get rules in ossec.conf
  * GET /manager/configuration/test - Test configuration
  * GET /manager/stats - Stats Today
- *   GET /manager/stats?date=YYYYMMDD - Stats YYYYMMDD
+ * GET /manager/stats?date=YYYYMMDD - Stats YYYYMMDD
  * GET /manager/stats/hourly - Stats hourly averages.
  * GET /manager/stats/weekly - Stats weekly-hourly averages
  *
@@ -95,10 +100,10 @@ router.get('/stats', function (req, res) {
 
     filter = req_h.get_filter(req.query, ['date'], 1);
 
-    if (filter == "bad_field")
+    if (filter === "bad_field")
         res_h.bad_request("604", "Allowed fields: date", res);
     else {
-        if (filter != null) {
+        if (filter !== null) {
             if (validator.dates(filter.date)) {
                 manager.stats(filter.date, function (data) {
                     res_h.cmd(data, res);

@@ -3,6 +3,10 @@
  * Copyright (C) 2015-2016 Wazuh, Inc.All rights reserved.
  * Wazuh.com
  *
+ *
+ * Extended by Acknowledge Benelux BV in 2017
+ * acknowledge.nl
+ *
  * This program is a free software; you can redistribute it
  * and/or modify it under the terms of the GNU General Public
  * License (version 2) as published by the FSF - Free Software
