@@ -1,0 +1,24 @@
+!_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+err	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^    err = ""$/;"	v	language:Python
+error_line	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^        error_line = 0$/;"	v	language:Python
+json	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^import json$/;"	i	language:Python
+lines	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^        lines = err.split(os.linesep)$/;"	v	language:Python
+os	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^import os$/;"	i	language:Python
+ossec_path	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^    ossec_path = "\/var\/ossec"$/;"	v	language:Python
+output	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^    output = ""$/;"	v	language:Python
+p	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^            p = subprocess.Popen(["{0}\/bin\/verify-agent-conf".format(ossec_path), "{0}\/etc\/shared\/agent.conf".format(ossec_path)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)$/;"	v	language:Python
+p	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^            p = subprocess.Popen(["{0}\/bin\/verify-agent-conf".format(ossec_path), "{0}\/etc\/shared\/agent.conf.new".format(ossec_path)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)$/;"	v	language:Python
+response	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^    response = {'error': r_error}$/;"	v	language:Python
+r_data	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^                r_data = "OK"$/;"	v	language:Python
+r_data	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^    r_data = ""$/;"	v	language:Python
+r_error	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^                r_error = 0$/;"	v	language:Python
+r_error	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^                r_error = 82$/;"	v	language:Python
+r_error	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^            r_error = 81$/;"	v	language:Python
+r_error	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^        r_error = 80$/;"	v	language:Python
+r_error	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^    r_error = 0$/;"	v	language:Python
+r_message	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^                r_message = "{0}".format(lines[error_line:-1])$/;"	v	language:Python
+r_message	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^            r_message = "Error unknown."$/;"	v	language:Python
+r_message	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^        r_message = "Problem running command: {0}".format(e)$/;"	v	language:Python
+r_message	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^    r_message = ""$/;"	v	language:Python
+subprocess	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^import subprocess$/;"	i	language:Python
+sys	/home/joep/WebstormProjects/wazuh-api/scripts/check_agent_config.py	/^import sys$/;"	i	language:Python
