@@ -7,6 +7,7 @@ var config = require('../config.js');
 var logger = require('../helpers/logger');
 var manager = require('../models/manager');
 var libxml = require("libxmljs");
+var execute = require("./execute.js");
 
 exports.read_ossec_conf = function (callback) {
     var r_data = "";
@@ -21,7 +22,7 @@ exports.read_ossec_conf = function (callback) {
     });
 };
 
-// @TODO validate config then overwrite old config and restart ossec-master
+// @TODO Test this
 exports.write_ossec_conf = function (xml, callback) {
     var r_data = "";
     fs.writeFile(config.ossec_conf_path + ".new", xml, function write(err) {
@@ -34,7 +35,7 @@ exports.write_ossec_conf = function (xml, callback) {
     // validate config
     var cmd = config.api_path + "/scripts/check_config.py";
     execute.exec(cmd, ['new'], function check_config(data){
-        if(data['error'] != "0"){
+        if(data['error'] !== "0"){
             callback(data);
         }
     });
@@ -53,7 +54,6 @@ exports.write_ossec_conf = function (xml, callback) {
     })
 };
 
-// @TODO validate config then overwrite old config and restart ossec-master
 exports.write_ossec_agent_conf = function (xml, callback) {
     var r_data = "";
     fs.writeFile(config.ossec_agentconf_path + ".new", xml, function write(err) {
@@ -64,6 +64,27 @@ exports.write_ossec_agent_conf = function (xml, callback) {
         }
         callback(r_data);
     });
+
+    // validate config
+    var cmd = config.api_path + "/scripts/check_agent_config.py";
+    execute.exec(cmd, ['new'], function check_config(data){
+        if(data['error'] !== "0"){
+            callback(data);
+        }
+    });
+
+    // overwrite old config
+    fs.writeFile(config.ossec_agentconf_path, xml, function write(err) {
+        if (err) {
+            r_data = {'error': 91, 'data': "", 'message': "Error writing new config file"};
+            callback(r_data);
+        }
+    });
+
+    // restart ossec
+    manager.restart(function (data) {
+        callback(data);
+    })
 };
 
 exports.is_valid_xml = function (xml) {
